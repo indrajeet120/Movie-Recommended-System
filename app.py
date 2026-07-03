@@ -4,6 +4,8 @@ import streamlit as st
 import pandas as pd
 import requests
 from urllib.parse import quote
+import gdown
+import os
 
 # -------------------- Fetch Poster --------------------
 def fetch_poster(movie_title):
@@ -64,6 +66,11 @@ def recommend(movie):
 st.header("🎬 Movie Recommendation System")
 
 movies = pickle.load(open("artificats/movi_list.pkl", "rb"))
+# similarity = pickle.load(open("artificats/similarity.pkl", "rb"))
+if not os.path.exists("artificats/similarity.pkl"):
+    url = "https://drive.google.com/file/d/1KVctN_w0h48x3OuculhmlO48yWYQUZmw/view?usp=drive_link"
+    gdown.download(url, "artificats/similarity.pkl", quiet=False)
+
 similarity = pickle.load(open("artificats/similarity.pkl", "rb"))
 
 movie_list = movies["title"].values
